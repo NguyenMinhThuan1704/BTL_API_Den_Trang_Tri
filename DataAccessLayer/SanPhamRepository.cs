@@ -25,6 +25,22 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
+        public SanPhamModel GetDatabyIDLQ(string id)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_sanphamlienquan_get_by_id",
+                     "@MaLSP", id);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<SanPhamModel>().FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public bool Create(SanPhamModel model)
         {
             string msgError = "";
@@ -77,7 +93,7 @@ namespace DataAccessLayer
             }
         }
 
-        public List<SanPhamModel> Search(int pageIndex, int pageSize, out long total, string ten_sp, string anh_dai_dien)
+        public List<SanPhamModel> Search(int pageIndex, int pageSize, out long total, int maloaisp, string ten_sp, string anh_dai_dien)
         {
             string msgError = "";
             total = 0;
@@ -86,6 +102,7 @@ namespace DataAccessLayer
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_sanpham_search",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
+                    "@maloaisp", maloaisp,
                     "@ten_sp", ten_sp,
                     "@anh_dai_dien", anh_dai_dien);
                 if (!string.IsNullOrEmpty(msgError))

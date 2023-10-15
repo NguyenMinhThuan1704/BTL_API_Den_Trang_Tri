@@ -15,6 +15,10 @@ namespace BusinessLogicLayer
         {
             return _res.GetDatabyID(id);
         }
+        public SanPhamModel GetDatabyIDLQ(string id)
+        {
+            return _res.GetDatabyIDLQ(id);
+        }
         public bool Create(SanPhamModel model)
         {
             return _res.Create(model);
@@ -27,9 +31,9 @@ namespace BusinessLogicLayer
         {
             return _res.Delete(Id);
         }
-        public List<SanPhamModel> Search(int pageIndex, int pageSize, out long total, string ten_sp, string anh_dai_dien)
+        public List<SanPhamModel> Search(int pageIndex, int pageSize, out long total, int maloaisp, string ten_sp, string anh_dai_dien)
         {
-            return _res.Search(pageIndex, pageSize,out total, ten_sp, anh_dai_dien);
+            return _res.Search(pageIndex, pageSize,out total, maloaisp, ten_sp, anh_dai_dien);
         }
     }
 }

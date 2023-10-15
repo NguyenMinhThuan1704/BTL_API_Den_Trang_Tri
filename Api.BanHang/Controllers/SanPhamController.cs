@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
+
 namespace Api.BanHang.Controllers
 {
+
     //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -89,6 +91,12 @@ namespace Api.BanHang.Controllers
         {
             return _sanphamBusiness.GetDatabyID(id);
         }
+        [Route("get-by-id-lq/{id}")]
+        [HttpGet]
+        public SanPhamModel GetDatabyIDLQ(string id)
+        {
+            return _sanphamBusiness.GetDatabyIDLQ(id);
+        }
         [Route("create-khach")]
         [HttpPost]
         public SanPhamModel CreateItem([FromBody] SanPhamModel model)
@@ -117,12 +125,14 @@ namespace Api.BanHang.Controllers
             {
                 var page = int.Parse(formData["page"].ToString());
                 var pageSize = int.Parse(formData["pageSize"].ToString());
+                int maloaisp = 0;
+                if (formData.Keys.Contains("ten_sp")) { maloaisp = int.Parse(formData["maloaisp"].ToString()); }
                 string ten_sp = "";
                 if (formData.Keys.Contains("ten_sp") && !string.IsNullOrEmpty(Convert.ToString(formData["ten_sp"]))) { ten_sp = Convert.ToString(formData["ten_sp"]); }
                 string anh_dai_dien = "";
                 if (formData.Keys.Contains("anh_dai_dien") && !string.IsNullOrEmpty(Convert.ToString(formData["anh_dai_dien"]))) { anh_dai_dien = Convert.ToString(formData["anh_dai_dien"]); }
                 long total = 0;
-                var data = _sanphamBusiness.Search(page, pageSize, out total, ten_sp, anh_dai_dien);
+                var data = _sanphamBusiness.Search(page, pageSize, out total, maloaisp, ten_sp, anh_dai_dien);
                 return Ok(
                     new
                     {
