@@ -4,21 +4,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-
 namespace Api.BanHang.Controllers
 {
-
     //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class SanPhamController : ControllerBase
+    public class KhachController : ControllerBase
     {
-        private ISanPhamBusiness _sanphamBusiness;
+        private IKhachBusiness _khachBusiness;
         private string _path;
         private IWebHostEnvironment _env;
-        public SanPhamController(ISanPhamBusiness sanphamBusiness, IConfiguration configuration, IWebHostEnvironment env)
+        public KhachController(IKhachBusiness khachBusiness, IConfiguration configuration, IWebHostEnvironment env)
         {
-            _sanphamBusiness = sanphamBusiness;
+            _khachBusiness = khachBusiness;
             _path = configuration["AppSettings:PATH"];
             _env = env;
         }
@@ -87,15 +85,29 @@ namespace Api.BanHang.Controllers
         //[AllowAnonymous]
         [Route("get-by-id/{id}")]
         [HttpGet]
-        public SanPhamModel GetDatabyID(string id)
+        public KhachModel GetDatabyID(string id)
         {
-            return _sanphamBusiness.GetDatabyID(id);
+            return _khachBusiness.GetDatabyID(id);
         }
-        [Route("get-by-id-lq/{id}")]
-        [HttpGet]
-        public List<SanPhamModel> GetDatabyIDLQ(string id)
+        [Route("create-khach")]
+        [HttpPost]
+        public KhachModel CreateItem([FromBody] KhachModel model)
         {
-            return _sanphamBusiness.GetDatabyIDLQ(id);
+            _khachBusiness.Create(model);
+            return model;
+        }
+        [Route("update-khach")]
+        [HttpPost]
+        public KhachModel UpdateItem([FromBody] KhachModel model)
+        {
+            _khachBusiness.Update(model);
+            return model;
+        }
+        [Route("delete/{id}")]
+        [HttpDelete]
+        public bool DeleteKH(string id)
+        {
+            return _khachBusiness.Delete(id);
         }
         [Route("search")]
         [HttpPost]
@@ -105,14 +117,12 @@ namespace Api.BanHang.Controllers
             {
                 var page = int.Parse(formData["page"].ToString());
                 var pageSize = int.Parse(formData["pageSize"].ToString());
-                int maloaisp = 0;
-                if (formData.Keys.Contains("maloaisp")) { maloaisp = int.Parse(formData["maloaisp"].ToString()); }
-                string ten_sp = "";
-                if (formData.Keys.Contains("ten_sp") && !string.IsNullOrEmpty(Convert.ToString(formData["ten_sp"]))) { ten_sp = Convert.ToString(formData["ten_sp"]); }
-                string anh_dai_dien = "";
-                if (formData.Keys.Contains("anh_dai_dien") && !string.IsNullOrEmpty(Convert.ToString(formData["anh_dai_dien"]))) { anh_dai_dien = Convert.ToString(formData["anh_dai_dien"]); }
+                string ten_khach = "";
+                if (formData.Keys.Contains("ten_khach") && !string.IsNullOrEmpty(Convert.ToString(formData["ten_khach"]))) { ten_khach = Convert.ToString(formData["ten_khach"]); }
+                string dia_chi = "";
+                if (formData.Keys.Contains("dia_chi") && !string.IsNullOrEmpty(Convert.ToString(formData["dia_chi"]))) { dia_chi = Convert.ToString(formData["dia_chi"]); }
                 long total = 0;
-                var data = _sanphamBusiness.Search(page, pageSize, out total, maloaisp, ten_sp, anh_dai_dien);
+                var data = _khachBusiness.Search(page, pageSize, out total, ten_khach, dia_chi);
                 return Ok(
                     new
                     {

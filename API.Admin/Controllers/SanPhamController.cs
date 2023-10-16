@@ -97,6 +97,26 @@ namespace Api.BanHang.Controllers
         {
             return _sanphamBusiness.GetDatabyIDLQ(id);
         }
+        [Route("create-sanpham")]
+        [HttpPost]
+        public SanPhamModel CreateItem([FromBody] SanPhamModel model)
+        {
+            _sanphamBusiness.Create(model);
+            return model;
+        }
+        [Route("update-sanpham")]
+        [HttpPost]
+        public SanPhamModel UpdateItem([FromBody] SanPhamModel model)
+        {
+            _sanphamBusiness.Update(model);
+            return model;
+        }
+        [Route("delete/{id}")]
+        [HttpDelete]
+        public bool DeleteKH(string id)
+        {
+            return _sanphamBusiness.Delete(id);
+        }
         [Route("search")]
         [HttpPost]
         public IActionResult Search([FromBody] Dictionary<string, object> formData)

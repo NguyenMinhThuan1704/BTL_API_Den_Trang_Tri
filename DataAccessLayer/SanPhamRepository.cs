@@ -25,7 +25,7 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
-        public SanPhamModel GetDatabyIDLQ(string id)
+        public List<SanPhamModel> GetDatabyIDLQ(string id)
         {
             string msgError = "";
             try
@@ -34,7 +34,7 @@ namespace DataAccessLayer
                      "@MaLSP", id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return dt.ConvertTo<SanPhamModel>().FirstOrDefault();
+                return dt.ConvertTo<SanPhamModel>().ToList();
             }
             catch (Exception ex)
             {

@@ -52,7 +52,7 @@ namespace DataAccessLayer
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_npp_update",
-                "@MaNPP", model.MaNPP,
+                "@MaNPP", model.MaNhaPhanPhoi,
                 "@TenNhaPhanPhoi", model.TenNhaPhanPhoi,
                 "@DiaChi", model.DiaChi,
                 "@SoDienThoai", model.SoDienThoai,
