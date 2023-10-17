@@ -9,7 +9,7 @@ namespace DataAccessLayer
         {
             _dbHelper = dbHelper;
         }
-        public SanPhamModel GetDatabyID(string id)
+        public SanPhamModel GetDatabyID(int id)
         {
             string msgError = "";
             try
@@ -35,6 +35,22 @@ namespace DataAccessLayer
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 return dt.ConvertTo<SanPhamModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<SanPhamTheoChucNang> SanPhamTheoChucNang(int id)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_LaySanPhamTheoChucNang",
+                     "@ChucNang", id);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<SanPhamTheoChucNang>().ToList();
             }
             catch (Exception ex)
             {

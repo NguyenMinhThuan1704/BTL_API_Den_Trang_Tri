@@ -87,7 +87,7 @@ namespace Api.BanHang.Controllers
         //[AllowAnonymous]
         [Route("get-by-id/{id}")]
         [HttpGet]
-        public SanPhamModel GetDatabyID(string id)
+        public SanPhamModel GetDatabyID(int id)
         {
             return _sanphamBusiness.GetDatabyID(id);
         }

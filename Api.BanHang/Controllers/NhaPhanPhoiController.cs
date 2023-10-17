@@ -4,21 +4,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-
 namespace Api.BanHang.Controllers
 {
-
     //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class SanPhamController : ControllerBase
+    public class NhaPhanPhoiController : ControllerBase
     {
-        private ISanPhamBusiness _sanphamBusiness;
+        private INhaPhanPhoiBusiness _nhaphanphoiBusiness;
         private string _path;
         private IWebHostEnvironment _env;
-        public SanPhamController(ISanPhamBusiness sanphamBusiness, IConfiguration configuration, IWebHostEnvironment env)
+        public NhaPhanPhoiController(INhaPhanPhoiBusiness nhaphanphoiBusiness, IConfiguration configuration, IWebHostEnvironment env)
         {
-            _sanphamBusiness = sanphamBusiness;
+            _nhaphanphoiBusiness = nhaphanphoiBusiness;
             _path = configuration["AppSettings:PATH"];
             _env = env;
         }
@@ -87,21 +85,29 @@ namespace Api.BanHang.Controllers
         //[AllowAnonymous]
         [Route("get-by-id/{id}")]
         [HttpGet]
-        public SanPhamModel GetDatabyID(int id)
+        public NhaPhanPhoiModel GetDatabyID(string id)
         {
-            return _sanphamBusiness.GetDatabyID(id);
+            return _nhaphanphoiBusiness.GetDatabyID(id);
         }
-        [Route("get-by-id-lq/{id}")]
-        [HttpGet]
-        public List<SanPhamModel> GetDatabyIDLQ(string id)
+        [Route("create-nha-phan-phoi")]
+        [HttpPost]
+        public NhaPhanPhoiModel CreateItem([FromBody] NhaPhanPhoiModel model)
         {
-            return _sanphamBusiness.GetDatabyIDLQ(id);
+            _nhaphanphoiBusiness.Create(model);
+            return model;
         }
-        [Route("Select-sanphamtheochucnang/{id}")]
-        [HttpGet]
-        public List<SanPhamTheoChucNang> SanPhamTheoChucNang(int id)
+        [Route("update-nha-phan-phoi")]
+        [HttpPost]
+        public NhaPhanPhoiModel UpdateItem([FromBody] NhaPhanPhoiModel model)
         {
-            return _sanphamBusiness.SanPhamTheoChucNang(id);
+            _nhaphanphoiBusiness.Update(model);
+            return model;
+        }
+        [Route("delete/{id}")]
+        [HttpDelete]
+        public bool DeleteKH(string id)
+        {
+            return _nhaphanphoiBusiness.Delete(id);
         }
         [Route("search")]
         [HttpPost]
@@ -111,14 +117,12 @@ namespace Api.BanHang.Controllers
             {
                 var page = int.Parse(formData["page"].ToString());
                 var pageSize = int.Parse(formData["pageSize"].ToString());
-                int maloaisp = 0;
-                if (formData.Keys.Contains("maloaisp")) { maloaisp = int.Parse(formData["maloaisp"].ToString()); }
-                string ten_sp = "";
-                if (formData.Keys.Contains("ten_sp") && !string.IsNullOrEmpty(Convert.ToString(formData["ten_sp"]))) { ten_sp = Convert.ToString(formData["ten_sp"]); }
-                string anh_dai_dien = "";
-                if (formData.Keys.Contains("anh_dai_dien") && !string.IsNullOrEmpty(Convert.ToString(formData["anh_dai_dien"]))) { anh_dai_dien = Convert.ToString(formData["anh_dai_dien"]); }
+                string ten_npp = "";
+                if (formData.Keys.Contains("ten_npp") && !string.IsNullOrEmpty(Convert.ToString(formData["ten_npp"]))) { ten_npp = Convert.ToString(formData["ten_npp"]); }
+                string dia_chi = "";
+                if (formData.Keys.Contains("dia_chi") && !string.IsNullOrEmpty(Convert.ToString(formData["dia_chi"]))) { dia_chi = Convert.ToString(formData["dia_chi"]); }
                 long total = 0;
-                var data = _sanphamBusiness.Search(page, pageSize, out total, maloaisp, ten_sp, anh_dai_dien);
+                var data = _nhaphanphoiBusiness.Search(page, pageSize, out total, ten_npp, dia_chi);
                 return Ok(
                     new
                     {

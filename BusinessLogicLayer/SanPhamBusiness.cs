@@ -11,9 +11,13 @@ namespace BusinessLogicLayer
         {
             _res = res;
         }
-        public SanPhamModel GetDatabyID(string id)
+        public SanPhamModel GetDatabyID(int id)
         {
             return _res.GetDatabyID(id);
+        }
+        public List<SanPhamTheoChucNang> SanPhamTheoChucNang(int id)
+        {
+            return _res.SanPhamTheoChucNang(id);
         }
         public List<SanPhamModel> GetDatabyIDLQ(string id)
         {
