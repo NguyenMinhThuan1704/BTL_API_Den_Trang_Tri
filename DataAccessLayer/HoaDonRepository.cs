@@ -25,7 +25,22 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
-        
+        public List<HoaDonModel> GetAll()
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_hoadon_get_all");
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<HoaDonModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool Create(HoaDonModel model)
         {
             string msgError = "";
@@ -33,7 +48,7 @@ namespace DataAccessLayer
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_hoadon_create",
                 "@TenKH", model.TenKH,
-                "@Diachi", model.Diachi,
+                "@DiaChi", model.DiaChi,
                 "@SDT", model.SDT,
                 "@TrangThai", model.TrangThai,
                 "@list_json_chitiethoadon", model.list_json_chitiethoadon != null ? MessageConvert.SerializeObject(model.list_json_chitiethoadon) : null);
@@ -57,7 +72,7 @@ namespace DataAccessLayer
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_hoadon_update",
                 "@MaHoaDon", model.MaHoaDon,
                 "@TenKH", model.TenKH,
-                "@Diachi", model.Diachi,
+                "@Diachi", model.DiaChi,
                 "@SDT", model.SDT,
                 "@TrangThai", model.TrangThai,
                 "@list_json_chitiethoadon", model.list_json_chitiethoadon != null ? MessageConvert.SerializeObject(model.list_json_chitiethoadon) : null);

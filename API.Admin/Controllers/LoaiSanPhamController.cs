@@ -4,21 +4,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-
 namespace Api.BanHang.Controllers
 {
-
     //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class SanPhamController : ControllerBase
+    public class LoaiSanPhamController : ControllerBase
     {
-        private ISanPhamBusiness _sanphamBusiness;
+        private ILoaiSanPhamBusiness _loaisanphamBusiness;
         private string _path;
         private IWebHostEnvironment _env;
-        public SanPhamController(ISanPhamBusiness sanphamBusiness, IConfiguration configuration, IWebHostEnvironment env)
+        public LoaiSanPhamController(ILoaiSanPhamBusiness loaisanphamBusiness, IConfiguration configuration, IWebHostEnvironment env)
         {
-            _sanphamBusiness = sanphamBusiness;
+            _loaisanphamBusiness = loaisanphamBusiness;
             _path = configuration["AppSettings:PATH"];
             _env = env;
         }
@@ -87,72 +85,58 @@ namespace Api.BanHang.Controllers
         //[AllowAnonymous]
         [Route("get-by-id/{id}")]
         [HttpGet]
-        public SanPhamModel GetDatabyID(int id)
+        public LoaiSanPhamModel GetDatabyID(string id)
         {
-            return _sanphamBusiness.GetDatabyID(id);
+            return _loaisanphamBusiness.GetDatabyID(id);
         }
-        [Route("get-by-id-lq/{id}")]
-        [HttpGet]
-        public List<SanPhamModel> GetDatabyIDLQ(string id)
-        {
-            return _sanphamBusiness.GetDatabyIDLQ(id);
-        }
-        [Route("Select-sanphamtheochucnang/{id}")]
-        [HttpGet]
-        public List<SanPhamTheoChucNang> SanPhamTheoChucNang(int id)
-        {
-            return _sanphamBusiness.SanPhamTheoChucNang(id);
-        }
-        [Route("create-sanpham")]
+        [Route("create-loaisanpham")]
         [HttpPost]
-        public SanPhamModel CreateItem([FromBody] SanPhamModel model)
+        public LoaiSanPhamModel CreateItem([FromBody] LoaiSanPhamModel model)
         {
-            _sanphamBusiness.Create(model);
+            _loaisanphamBusiness.Create(model);
             return model;
         }
-        [Route("update-sanpham")]
+        [Route("update-loaisanpham")]
         [HttpPost]
-        public SanPhamModel UpdateItem([FromBody] SanPhamModel model)
+        public LoaiSanPhamModel UpdateItem([FromBody] LoaiSanPhamModel model)
         {
-            _sanphamBusiness.Update(model);
+            _loaisanphamBusiness.Update(model);
             return model;
         }
         [Route("delete/{id}")]
         [HttpDelete]
         public bool DeleteKH(string id)
         {
-            return _sanphamBusiness.Delete(id);
+            return _loaisanphamBusiness.Delete(id);
         }
-        [Route("search")]
-        [HttpPost]
-        public IActionResult Search([FromBody] Dictionary<string, object> formData)
-        {
-            try
-            {
-                var page = int.Parse(formData["page"].ToString());
-                var pageSize = int.Parse(formData["pageSize"].ToString());
-                int maloaisp = 0;
-                if (formData.Keys.Contains("maloaisp")) { maloaisp = int.Parse(formData["maloaisp"].ToString()); }
-                string ten_sp = "";
-                if (formData.Keys.Contains("ten_sp") && !string.IsNullOrEmpty(Convert.ToString(formData["ten_sp"]))) { ten_sp = Convert.ToString(formData["ten_sp"]); }
-                string anh_dai_dien = "";
-                if (formData.Keys.Contains("anh_dai_dien") && !string.IsNullOrEmpty(Convert.ToString(formData["anh_dai_dien"]))) { anh_dai_dien = Convert.ToString(formData["anh_dai_dien"]); }
-                long total = 0;
-                var data = _sanphamBusiness.Search(page, pageSize, out total, maloaisp, ten_sp, anh_dai_dien);
-                return Ok(
-                    new
-                    {
-                        TotalItems = total,
-                        Data = data,
-                        Page = page,
-                        PageSize = pageSize
-                    }
-                    );
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            } 
-        }
+        //[Route("search")]
+        //[HttpPost]
+        //public IActionResult Search([FromBody] Dictionary<string, object> formData)
+        //{
+        //    try
+        //    {
+        //        var page = int.Parse(formData["page"].ToString());
+        //        var pageSize = int.Parse(formData["pageSize"].ToString());
+        //        string ten_khach = "";
+        //        if (formData.Keys.Contains("ten_khach") && !string.IsNullOrEmpty(Convert.ToString(formData["ten_khach"]))) { ten_khach = Convert.ToString(formData["ten_khach"]); }
+        //        string dia_chi = "";
+        //        if (formData.Keys.Contains("dia_chi") && !string.IsNullOrEmpty(Convert.ToString(formData["dia_chi"]))) { dia_chi = Convert.ToString(formData["dia_chi"]); }
+        //        long total = 0;
+        //        var data = _loaisanphamBusiness.Search(page, pageSize, out total, ten_khach, dia_chi);
+        //        return Ok(
+        //            new
+        //            {
+        //                TotalItems = total,
+        //                Data = data,
+        //                Page = page,
+        //                PageSize = pageSize
+        //            }
+        //            );
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    } 
+        //}
     }
 }
