@@ -9,11 +9,4 @@
         public string Email { get; set; }
         public string token { get; set; }
     }
-
-    public class LoaiTaiKhoan
-    {
-        public int MaLoaiTK { get; set; }
-        public string TenLoaiTK { get; set; }
-        public string MoTa { get; set; }
-    }
 }
