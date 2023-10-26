@@ -1,0 +1,18 @@
+﻿using DataModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BusinessLogicLayer
+{
+    public partial interface ITinTucBusiness
+    {
+        TinTucModel GetDatabyID(string id);
+        bool Create(TinTucModel model);
+        bool Update(TinTucModel model);
+        bool Delete(string Id);
+        public List<TinTucModel> Search(int pageIndex, int pageSize, out long total, string tieu_de, string mo_ta);
+    }
+}

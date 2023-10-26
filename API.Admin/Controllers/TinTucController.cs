@@ -9,14 +9,14 @@ namespace Api.BanHang.Controllers
     //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class NhaPhanPhoiController : ControllerBase
+    public class TinTucController : ControllerBase
     {
-        private INhaPhanPhoiBusiness _nhaphanphoiBusiness;
+        private ITinTucBusiness _tintucBusiness;
         private string _path;
         private IWebHostEnvironment _env;
-        public NhaPhanPhoiController(INhaPhanPhoiBusiness nhaphanphoiBusiness, IConfiguration configuration, IWebHostEnvironment env)
+        public TinTucController(ITinTucBusiness tintucBusiness, IConfiguration configuration, IWebHostEnvironment env)
         {
-            _nhaphanphoiBusiness = nhaphanphoiBusiness;
+            _tintucBusiness = tintucBusiness;
             _path = configuration["AppSettings:PATH"];
             _env = env;
         }
@@ -24,31 +24,31 @@ namespace Api.BanHang.Controllers
         //[AllowAnonymous]
         [Route("get-by-id/{id}")]
         [HttpGet]
-        public NhaPhanPhoiModel GetDatabyID(string id)
+        public TinTucModel GetDatabyID(string id)
         {
-            return _nhaphanphoiBusiness.GetDatabyID(id);
+            return _tintucBusiness.GetDatabyID(id);
         }
-        [Route("create-nha-phan-phoi")]
+        [Route("create-tintuc")]
         [HttpPost]
-        public NhaPhanPhoiModel CreateItem([FromBody] NhaPhanPhoiModel model)
+        public TinTucModel CreateItem([FromBody] TinTucModel model)
         {
-            _nhaphanphoiBusiness.Create(model);
+            _tintucBusiness.Create(model);
             return model;
         }
-        [Route("update-nha-phan-phoi")]
+        [Route("update-tintuc")]
         [HttpPost]
-        public NhaPhanPhoiModel UpdateItem([FromBody] NhaPhanPhoiModel model)
+        public TinTucModel UpdateItem([FromBody] TinTucModel model)
         {
-            _nhaphanphoiBusiness.Update(model);
+            _tintucBusiness.Update(model);
             return model;
         }
         [Route("delete/{id}")]
         [HttpDelete]
         public bool DeleteKH(string id)
         {
-            return _nhaphanphoiBusiness.Delete(id);
+            return _tintucBusiness.Delete(id);
         }
-        [Route("search")]
+        [Route("search_tintuc")]
         [HttpPost]
         public IActionResult Search([FromBody] Dictionary<string, object> formData)
         {
@@ -56,12 +56,12 @@ namespace Api.BanHang.Controllers
             {
                 var page = int.Parse(formData["page"].ToString());
                 var pageSize = int.Parse(formData["pageSize"].ToString());
-                string ten_npp = "";
-                if (formData.Keys.Contains("ten_npp") && !string.IsNullOrEmpty(Convert.ToString(formData["ten_npp"]))) { ten_npp = Convert.ToString(formData["ten_npp"]); }
-                string dia_chi = "";
-                if (formData.Keys.Contains("dia_chi") && !string.IsNullOrEmpty(Convert.ToString(formData["dia_chi"]))) { dia_chi = Convert.ToString(formData["dia_chi"]); }
+                string tieu_de = "";
+                if (formData.Keys.Contains("tieu_de") && !string.IsNullOrEmpty(Convert.ToString(formData["tieu_de"]))) { tieu_de = Convert.ToString(formData["tieu_de"]); }
+                string mo_ta = "";
+                if (formData.Keys.Contains("mo_ta") && !string.IsNullOrEmpty(Convert.ToString(formData["mo_ta"]))) { mo_ta = Convert.ToString(formData["mo_ta"]); }
                 long total = 0;
-                var data = _nhaphanphoiBusiness.Search(page, pageSize, out total, ten_npp, dia_chi);
+                var data = _tintucBusiness.Search(page, pageSize, out total, tieu_de, mo_ta);
                 return Ok(
                     new
                     {

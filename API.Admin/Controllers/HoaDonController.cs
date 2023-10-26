@@ -42,7 +42,7 @@ namespace Api.BanHang.Controllers
             return model;
         }
 
-        [Route("thongkekhach")]
+        [Route("thongke")]
         [HttpPost]
         public IActionResult Search([FromBody] Dictionary<string, object> formData)
         {

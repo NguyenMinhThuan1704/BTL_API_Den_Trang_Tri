@@ -94,7 +94,7 @@ namespace DataAccessLayer
             total = 0;
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_thong_ke_khach",
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_hoadon_thong_ke",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
                     "@ten_khach", ten_khach,

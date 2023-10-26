@@ -28,10 +28,10 @@ namespace BusinessLogicLayer
         {
             return _res.Update(model);
         }
-        //public List<ThongKeKhachModel> Search(int pageIndex, int pageSize, out long total, string ten_khach, DateTime? fr_NgayTao, DateTime? to_NgayTao)
-        //{
-        //    return _res.Search(pageIndex, pageSize, out total, ten_khach, fr_NgayTao, to_NgayTao);
-        //}
+        public List<ThongKeHoaDonNhapModel> Search(int pageIndex, int pageSize, out long total, DateTime? fr_NgayTao, DateTime? to_NgayTao)
+        {
+            return _res.Search(pageIndex, pageSize, out total, fr_NgayTao, to_NgayTao);
+        }
 
     }
 }
