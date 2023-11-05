@@ -31,6 +31,43 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
+        public List<UserModel> GetAll()
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_taikhoan_select_all");
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<UserModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int CheckLogin(CheckLoginModel model)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_check_login",
+                "@TenTaiKhoan", model.TenTaiKhoan,
+                "@MatKhau", model.MatKhau);
+
+                if (int.TryParse(result.ToString(), out int accountType))
+                {
+                    return accountType;
+                }
+
+                throw new Exception("Failed to determine the account type.");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool Update(UserModel model)
         {
             string msgError = "";

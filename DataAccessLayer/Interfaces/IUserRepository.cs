@@ -11,6 +11,8 @@ namespace DataAccessLayer
     {
         UserModel Login(string taikhoan, string matkhau);
         UserModel GetDatabyID(string id);
+        List<UserModel> GetAll();
+        int CheckLogin(CheckLoginModel model);
         bool Create(UserModel model);
         bool Update(UserModel model);
         bool Delete(string Id);

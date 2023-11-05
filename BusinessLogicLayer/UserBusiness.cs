@@ -19,10 +19,18 @@ namespace BusinessLogicLayer
             _res = res;
             secret = configuration["AppSettings:Secret"];
         }
+        public List<UserModel> GetAll()
+        {
+            return _res.GetAll();
+        }
 
         public bool Create(UserModel model)
         {
             return _res.Create(model);
+        }
+        public int CheckLogin(CheckLoginModel model)
+        {
+            return _res.CheckLogin(model);
         }
         public bool Update(UserModel model)
         {

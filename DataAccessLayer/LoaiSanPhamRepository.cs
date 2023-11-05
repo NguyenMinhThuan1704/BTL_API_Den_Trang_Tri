@@ -31,9 +31,7 @@ namespace DataAccessLayer
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_loaisp_create",
-                "@MaLoaiSanPhamCha", model.MaLoaiSanPhamCha,
                 "@TenLoaiSanPham", model.TenLoaiSanPham,
-                "@DacBiet", model.DacBiet,
                 "@NoiDung", model.NoiDung);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
@@ -53,9 +51,7 @@ namespace DataAccessLayer
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_loaisp_update",
                 "@MaLoaiSanPham", model.MaLoaiSanPham,
-                "@MaLoaiSanPhamCha", model.MaLoaiSanPhamCha,
                 "@TenLoaiSanPham", model.TenLoaiSanPham,
-                "@DacBiet", model.DacBiet,
                 "@NoiDung", model.NoiDung);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
@@ -69,17 +65,17 @@ namespace DataAccessLayer
             }
         }
 
-        public List<LoaiSanPhamModel> Search(int pageIndex, int pageSize, out long total, string ten_khach, string dia_chi)
+        public List<LoaiSanPhamModel> Search(int pageIndex, int pageSize, out long total, string tenlsp, string noidung)
         {
             string msgError = "";
             total = 0;
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_loaisp_search",
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_loaisanpham_search",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
-                    "@ten_khach", ten_khach,
-                    "@dia_chi", dia_chi);
+                    "@tenlsp", tenlsp,
+                    "@noidung", noidung);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];

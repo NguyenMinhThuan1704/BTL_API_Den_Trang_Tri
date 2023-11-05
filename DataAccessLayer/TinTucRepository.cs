@@ -33,10 +33,7 @@ namespace DataAccessLayer
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_tintuc_create",
                 "@TieuDe", model.TieuDe,
                 "@AnhDaiDien", model.AnhDaiDien,
-                "@MoTa", model.MoTa,
-                "@NgayTao", model.NgayTao,
-                "@ChiTiet", model.ChiTiet,
-                "@LuotXem", model.LuotXem);
+                "@MoTa", model.MoTa);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -57,10 +54,7 @@ namespace DataAccessLayer
                 "@MaTT", model.MaTinTuc,
                 "@TieuDe", model.TieuDe,
                 "@AnhDaiDien", model.AnhDaiDien,
-                "@MoTa", model.MoTa,
-                "@NgayTao", model.NgayTao,
-                "@ChiTiet", model.ChiTiet,
-                "@LuotXem", model.LuotXem);
+                "@MoTa", model.MoTa);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);

@@ -7,9 +7,7 @@
         public string AnhDaiDien { get; set; }
         public string MoTa { get; set; }
         public DateTime NgayTao { get; set; }
-        public string ChiTiet { get; set; }
-        public int LuotXem { get; set; }
-
+        //public string ChiTiet { get; set; }
 
     }
 }

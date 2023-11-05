@@ -32,7 +32,6 @@ namespace DataAccessLayer
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_khach_create",
                 "@TenKH", model.TenKH,
-                "@GioiTinh", model.GioiTinh,
                 "@DiaChi", model.DiaChi,
                 "@SDT", model.SDT,
                 "@Email", model.Email);
@@ -55,7 +54,6 @@ namespace DataAccessLayer
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_khach_update",
                 "@MaKH", model.MaKH,
                 "@TenKH", model.TenKH,
-                "@GioiTinh", model.GioiTinh,
                 "@DiaChi", model.DiaChi,
                 "@SDT", model.SDT,
                 "@Email", model.Email);

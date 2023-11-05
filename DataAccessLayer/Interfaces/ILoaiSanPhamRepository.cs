@@ -13,6 +13,6 @@ namespace DataAccessLayer
         bool Create(LoaiSanPhamModel model);
         bool Update(LoaiSanPhamModel model);
         bool Delete(string Id);
-        public List<LoaiSanPhamModel> Search(int pageIndex, int pageSize, out long total, string ten_khach, string dia_chi);
+        public List<LoaiSanPhamModel> Search(int pageIndex, int pageSize, out long total, string tenlsp, string noidung);
     }
 }

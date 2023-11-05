@@ -41,6 +41,7 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
+
         public List<SanPhamTheoChucNang> SanPhamTheoChucNang(int id)
         {
             string msgError = "";
@@ -69,8 +70,7 @@ namespace DataAccessLayer
                 "@Gia", model.Gia,
                 "@GiaGiam", model.GiaGiam,
                 "@SoLuong", model.SoLuong,
-                "@TrangThai", model.TrangThai,
-                "@LuotXem", model.LuotXem);
+                "@TrangThai", model.TrangThai);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -95,8 +95,7 @@ namespace DataAccessLayer
                 "@Gia", model.Gia,
                 "@GiaGiam", model.GiaGiam,
                 "@SoLuong", model.SoLuong,
-                "@TrangThai", model.TrangThai,
-                "@LuotXem", model.LuotXem);
+                "@TrangThai", model.TrangThai);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -109,7 +108,7 @@ namespace DataAccessLayer
             }
         }
 
-        public List<SanPhamModel> Search(int pageIndex, int pageSize, out long total, int maloaisp, string ten_sp, string anh_dai_dien)
+        public List<SanPham1Model> Search(int pageIndex, int pageSize, out long total, int maloaisp, string ten_sp, string anh_dai_dien)
         {
             string msgError = "";
             total = 0;
@@ -124,7 +123,7 @@ namespace DataAccessLayer
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
-                return dt.ConvertTo<SanPhamModel>().ToList();
+                return dt.ConvertTo<SanPham1Model>().ToList();
             }
             catch (Exception ex)
             {
@@ -144,6 +143,22 @@ namespace DataAccessLayer
                     throw new Exception(Convert.ToString(result) + msgError);
                 }
                 return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<LaySPTheoLSPModel> GetSPTheoLSP()
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_loaisanpham");
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<LaySPTheoLSPModel>().ToList();
             }
             catch (Exception ex)
             {

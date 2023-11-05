@@ -31,6 +31,13 @@ namespace Api.BanHang.Controllers
             _userBusiness.Create(model);
             return model;
         }
+        [Route("check-login")]
+        [HttpPost]
+        public CheckLoginModel CheckLogin([FromBody] CheckLoginModel model)
+        {
+            _userBusiness.CheckLogin(model);
+            return model;
+        }
         [Route("update-taikhoan")]
         [HttpPost]
         public UserModel UpdateItem([FromBody] UserModel model)
@@ -38,11 +45,11 @@ namespace Api.BanHang.Controllers
             _userBusiness.Update(model);
             return model;
         }
-        [Route("delete/{id}")]
-        [HttpDelete]
-        public bool DeleteKH(string id)
-        {
-            return _userBusiness.Delete(id);
-        }
+        //[Route("delete/{id}")]
+        //[HttpDelete]
+        //public bool DeleteKH(string id)
+        //{
+        //    return _userBusiness.Delete(id);
+        //}
     }
 }

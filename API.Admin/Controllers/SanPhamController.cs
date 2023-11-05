@@ -36,6 +36,12 @@ namespace Api.BanHang.Controllers
         {
             return _sanphamBusiness.GetDatabyIDLQ(id);
         }
+        [Route("GetSPTheoLSP")]
+        [HttpGet]
+        public List<LaySPTheoLSPModel> GetSPTheoLSP()
+        {
+            return _sanphamBusiness.GetSPTheoLSP();
+        }
         [Route("Select-sanphamtheochucnang/{id}")]
         [HttpGet]
         public List<SanPhamTheoChucNang> SanPhamTheoChucNang(int id)

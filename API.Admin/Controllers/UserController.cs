@@ -30,11 +30,24 @@ namespace Api.BanHang.Controllers
         {
             return _userBusiness.GetDatabyID(id);
         }
+        [Route("Select-all-taikhoan")]
+        [HttpGet]
+        public List<UserModel> GetAll()
+        {
+            return _userBusiness.GetAll();
+        }
         [Route("create-taikhoan")]
         [HttpPost]
         public UserModel CreateItem([FromBody] UserModel model)
         {
             _userBusiness.Create(model);
+            return model;
+        }
+        [Route("check-login")]
+        [HttpPost]
+        public CheckLoginModel CheckLogin([FromBody] CheckLoginModel model)
+        {
+            _userBusiness.CheckLogin(model);
             return model;
         }
         [Route("update-taikhoan")]

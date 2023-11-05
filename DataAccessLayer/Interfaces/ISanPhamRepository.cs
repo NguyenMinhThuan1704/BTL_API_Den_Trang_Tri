@@ -12,9 +12,10 @@ namespace DataAccessLayer
         SanPhamModel GetDatabyID(int id);
         List<SanPhamTheoChucNang> SanPhamTheoChucNang(int id);
         List<SanPhamModel> GetDatabyIDLQ(string id);
+        List<LaySPTheoLSPModel> GetSPTheoLSP();
         bool Create(SanPhamModel model);
         bool Update(SanPhamModel model);
         bool Delete(string Id);
-        public List<SanPhamModel> Search(int pageIndex, int pageSize, out long total, int maloaisp,string ten_sp, string anh_dai_dien);
+        public List<SanPham1Model> Search(int pageIndex, int pageSize, out long total, int maloaisp,string ten_sp, string anh_dai_dien);
     }
 }
