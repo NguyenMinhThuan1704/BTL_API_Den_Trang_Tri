@@ -43,13 +43,13 @@ namespace Api.BanHang.Controllers
             _userBusiness.Create(model);
             return model;
         }
-        [Route("check-login")]
-        [HttpPost]
-        public CheckLoginModel CheckLogin([FromBody] CheckLoginModel model)
-        {
-            _userBusiness.CheckLogin(model);
-            return model;
-        }
+        //[Route("check-login")]
+        //[HttpPost]
+        //public CheckLoginModel CheckLogin([FromBody] CheckLoginModel model)
+        //{
+        //    _userBusiness.CheckLogin(model);
+        //    return model;
+        //}
         [Route("update-taikhoan")]
         [HttpPost]
         public UserModel UpdateItem([FromBody] UserModel model)
@@ -62,6 +62,37 @@ namespace Api.BanHang.Controllers
         public bool DeleteKH(string id)
         {
             return _userBusiness.Delete(id);
+        }
+        [Route("search")]
+        [HttpPost]
+        public IActionResult Search([FromBody] Dictionary<string, object> formData)
+        {
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                int maloaitk = 0;
+                if (formData.Keys.Contains("maloaitk")) { maloaitk = int.Parse(formData["maloaitk"].ToString()); }
+                string ten_tk = "";
+                if (formData.Keys.Contains("ten_tk") && !string.IsNullOrEmpty(Convert.ToString(formData["ten_tk"]))) { ten_tk = Convert.ToString(formData["ten_tk"]); }
+                string email = "";
+                if (formData.Keys.Contains("email") && !string.IsNullOrEmpty(Convert.ToString(formData["email"]))) { email = Convert.ToString(formData["email"]); }
+                long total = 0;
+                var data = _userBusiness.Search(page, pageSize, out total, maloaitk, ten_tk, email);
+                return Ok(
+                    new
+                    {
+                        TotalItems = total,
+                        Data = data,
+                        Page = page,
+                        PageSize = pageSize
+                    }
+                    );
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

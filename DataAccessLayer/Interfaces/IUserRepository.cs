@@ -9,12 +9,13 @@ namespace DataAccessLayer
 {
     public partial interface IUserRepository
     {
-        UserModel Login(string taikhoan, string matkhau);
+        UserModel2 Login(string taikhoan, string matkhau);
         UserModel GetDatabyID(string id);
         List<UserModel> GetAll();
         int CheckLogin(CheckLoginModel model);
         bool Create(UserModel model);
         bool Update(UserModel model);
         bool Delete(string Id);
+        public List<UserModel1> Search(int pageIndex, int pageSize, out long total, int maloaitk, string ten_tk, string email);
     }
 }

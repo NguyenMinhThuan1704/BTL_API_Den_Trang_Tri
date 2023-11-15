@@ -22,7 +22,19 @@ namespace Api.BanHang.Controllers
             var user = _userBusiness.Login(model.Username, model.Password);
             if (user == null)
                 return BadRequest(new { message = "Tài khoản hoặc mật khẩu không đúng!" });
-            return Ok(new { taikhoan = user.TenTaiKhoan, email = user.Email, token = user.token });
+            return Ok(new { taikhoan = user.TenTaiKhoan, email = user.Email, token = user.token, loaitaikhoan = user.LoaiTaiKhoan, mataikhoan = user.MaTaiKhoan });
+        }
+        [Route("get-by-id/{id}")]
+        [HttpGet]
+        public UserModel GetDatabyID(string id)
+        {
+            return _userBusiness.GetDatabyID(id);
+        }
+        [Route("Select-all-taikhoan")]
+        [HttpGet]
+        public List<UserModel> GetAll()
+        {
+            return _userBusiness.GetAll();
         }
         [Route("create-taikhoan")]
         [HttpPost]
@@ -31,13 +43,13 @@ namespace Api.BanHang.Controllers
             _userBusiness.Create(model);
             return model;
         }
-        [Route("check-login")]
-        [HttpPost]
-        public CheckLoginModel CheckLogin([FromBody] CheckLoginModel model)
-        {
-            _userBusiness.CheckLogin(model);
-            return model;
-        }
+        //[Route("check-login")]
+        //[HttpPost]
+        //public CheckLoginModel CheckLogin([FromBody] CheckLoginModel model)
+        //{
+        //    _userBusiness.CheckLogin(model);
+        //    return model;
+        //}
         [Route("update-taikhoan")]
         [HttpPost]
         public UserModel UpdateItem([FromBody] UserModel model)

@@ -47,7 +47,7 @@ namespace BusinessLogicLayer
             return _res.GetDatabyID(id);
         }
 
-        public UserModel Login(string taikhoan, string matkhau)
+        public UserModel2 Login(string taikhoan, string matkhau)
         {
             var user = _res.Login(taikhoan, matkhau);
             if (user == null)
@@ -59,14 +59,22 @@ namespace BusinessLogicLayer
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.TenTaiKhoan.ToString()),
-                    new Claim(ClaimTypes.StreetAddress, user.Email)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim("MaTaiKhoan", user.MaTaiKhoan.ToString()),
+                    new Claim("LoaiTaiKhoan",user.LoaiTaiKhoan.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.Aes128CbcHmacSha256)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            user.Email = tokenHandler.WriteToken(token);
             user.token = tokenHandler.WriteToken(token);
             return user; 
+        }
+
+        public List<UserModel1> Search(int pageIndex, int pageSize, out long total, int maloaitk, string ten_tk, string email)
+        {
+            return _res.Search(pageIndex, pageSize, out total, maloaitk, ten_tk, email);
         }
     }
 }

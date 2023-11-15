@@ -127,7 +127,30 @@ namespace DataAccessLayer
             }
         }
 
-        public UserModel Login(string taikhoan, string matkhau)
+        public List<UserModel1> Search(int pageIndex, int pageSize, out long total, int maloaitk, string ten_tk, string email)
+        {
+            string msgError = "";
+            total = 0;
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_taikhoan_search",
+                    "@page_index", pageIndex,
+                    "@page_size", pageSize,
+                    "@maloaitk", maloaitk,
+                    "@ten_tk", ten_tk,
+                    "@email", email);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
+                return dt.ConvertTo<UserModel1>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public UserModel2 Login(string taikhoan, string matkhau)
         {
             string msgError = "";
             try
@@ -138,7 +161,7 @@ namespace DataAccessLayer
                      );
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return dt.ConvertTo<UserModel>().FirstOrDefault();
+                return dt.ConvertTo<UserModel2>().FirstOrDefault();
             }
             catch (Exception ex)
             {
