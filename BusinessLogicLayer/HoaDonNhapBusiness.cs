@@ -28,9 +28,13 @@ namespace BusinessLogicLayer
         {
             return _res.Update(model);
         }
-        public List<ThongKeHoaDonNhapModel> Search(int pageIndex, int pageSize, out long total, DateTime? fr_NgayTao, DateTime? to_NgayTao)
+        public List<ThongKeHoaDonNhapModel> ThongKe(int pageIndex, int pageSize, out long total, DateTime? fr_NgayTao, DateTime? to_NgayTao)
         {
-            return _res.Search(pageIndex, pageSize, out total, fr_NgayTao, to_NgayTao);
+            return _res.ThongKe(pageIndex, pageSize, out total, fr_NgayTao, to_NgayTao);
+        }
+        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total)
+        {
+            return _res.SearchHDN(pageIndex, pageSize, out total);
         }
 
     }

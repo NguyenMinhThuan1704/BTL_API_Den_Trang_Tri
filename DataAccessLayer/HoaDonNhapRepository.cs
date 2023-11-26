@@ -86,7 +86,7 @@ namespace DataAccessLayer
             }
         }
 
-        public List<ThongKeHoaDonNhapModel> Search(int pageIndex, int pageSize, out long total, DateTime? fr_NgayTao, DateTime? to_NgayTao)
+        public List<ThongKeHoaDonNhapModel> ThongKe(int pageIndex, int pageSize, out long total, DateTime? fr_NgayTao, DateTime? to_NgayTao)
         {
             string msgError = "";
             total = 0;
@@ -102,6 +102,26 @@ namespace DataAccessLayer
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
                 return dt.ConvertTo<ThongKeHoaDonNhapModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total)
+        {
+            string msgError = "";
+            total = 0;
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_hdn_search",
+                    "@page_index", pageIndex,
+                    "@page_size", pageSize
+                     );
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
+                return dt.ConvertTo<SearchHDNModel>().ToList();
             }
             catch (Exception ex)
             {

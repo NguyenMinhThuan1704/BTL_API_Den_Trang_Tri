@@ -18,6 +18,8 @@ builder.Services.AddTransient<IHoaDonRepository, HoaDonRepository>();
 builder.Services.AddTransient<IHoaDonBusiness, HoaDonBusiness>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserBusiness, UserBusiness>();
+builder.Services.AddTransient<ILoaiSanPhamRepository, LoaiSanPhamRepository>();
+builder.Services.AddTransient<ILoaiSanPhamBusiness, LoaiSanPhamBusiness>();
 builder.Services.AddTransient<ISanPhamRepository, SanPhamRepository>();
 builder.Services.AddTransient<ISanPhamBusiness, SanPhamBusiness>();
 builder.Services.AddTransient<IChiTietTaiKhoanRepository, ChiTietTaiKhoanRepository>();

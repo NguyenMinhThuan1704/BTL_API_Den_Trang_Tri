@@ -44,7 +44,7 @@ namespace Api.BanHang.Controllers
 
         [Route("thongke_hoadonnhap")]
         [HttpPost]
-        public IActionResult Search([FromBody] Dictionary<string, object> formData)
+        public IActionResult ThongKe([FromBody] Dictionary<string, object> formData)
         {
             try
             {
@@ -63,7 +63,32 @@ namespace Api.BanHang.Controllers
                     to_NgayTao = new DateTime(dt.Year, dt.Month, dt.Day, 23, 59, 59, 999);
                 }
                 long total = 0;
-                var data = _hoadonnhapBusiness.Search(page, pageSize, out total, fr_NgayTao, to_NgayTao);
+                var data = _hoadonnhapBusiness.ThongKe(page, pageSize, out total, fr_NgayTao, to_NgayTao);
+                return Ok(
+                    new
+                    {
+                        TotalItems = total,
+                        Data = data,
+                        Page = page,
+                        PageSize = pageSize
+                    }
+                    );
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        [Route("searchHDN")]
+        [HttpPost]
+        public IActionResult SearchHDN([FromBody] Dictionary<string, object> formData)
+        {
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                long total = 0;
+                var data = _hoadonnhapBusiness.SearchHDN(page, pageSize, out total);
                 return Ok(
                     new
                     {

@@ -27,9 +27,9 @@ namespace BusinessLogicLayer
         {
             return _res.Delete(Id);
         }
-        public List<ChiTietTaiKhoanModel> Search(int pageIndex, int pageSize, out long total, string ten_khach, string dia_chi)
+        public List<ChiTietTaiKhoanModel> Search(int pageIndex, int pageSize, out long total, string ho_ten, string dia_chi)
         {
-            return _res.Search(pageIndex, pageSize,out total, ten_khach, dia_chi);
+            return _res.Search(pageIndex, pageSize,out total, ho_ten, dia_chi);
         }
     }
 }

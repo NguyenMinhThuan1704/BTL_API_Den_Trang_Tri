@@ -13,6 +13,7 @@ namespace BusinessLogicLayer
         List<HoaDonNhapModel> GetAll();
         bool Create(HoaDonNhapModel model);
         bool Update(HoaDonNhapModel model);
-        public List<ThongKeHoaDonNhapModel> Search(int pageIndex, int pageSize, out long total, DateTime? fr_NgayTao, DateTime? to_NgayTao);
+        public List<ThongKeHoaDonNhapModel> ThongKe(int pageIndex, int pageSize, out long total, DateTime? fr_NgayTao, DateTime? to_NgayTao);
+        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total);
     }
 }

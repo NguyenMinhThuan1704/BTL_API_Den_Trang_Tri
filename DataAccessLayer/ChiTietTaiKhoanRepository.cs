@@ -77,7 +77,7 @@ namespace DataAccessLayer
             total = 0;
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_chitiettaikhoan_search",
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_cttk_search",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
                     "@ho_ten", ho_ten,
