@@ -13,8 +13,8 @@ namespace DataAccessLayer
         List<HoaDonNhapModel> GetAll() ;
         bool Create(HoaDonNhapModel model);
         bool Update(HoaDonNhapModel model);
-        public List<ThongKeHoaDonNhapModel> ThongKe(int pageIndex, int pageSize, out long total, DateTime? fr_NgayTao, DateTime? to_NgayTao);
-        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total);
+        public List<ThongKeHoaDonNhapModel> ThongKe(int pageIndex, int pageSize, out long total, int ma_nv, int ma_npp, DateTime? fr_NgayTao, DateTime? to_NgayTao);
+        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total, int ma_nv, int ma_npp);
 
     }
 }

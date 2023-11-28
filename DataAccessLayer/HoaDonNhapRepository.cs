@@ -86,7 +86,7 @@ namespace DataAccessLayer
             }
         }
 
-        public List<ThongKeHoaDonNhapModel> ThongKe(int pageIndex, int pageSize, out long total, DateTime? fr_NgayTao, DateTime? to_NgayTao)
+        public List<ThongKeHoaDonNhapModel> ThongKe(int pageIndex, int pageSize, out long total, int ma_nv, int ma_npp, DateTime? fr_NgayTao, DateTime? to_NgayTao)
         {
             string msgError = "";
             total = 0;
@@ -95,6 +95,8 @@ namespace DataAccessLayer
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_hoadonnhap_thong_ke",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
+                    "@ma_nv", ma_nv,
+                    "@ma_npp", ma_npp,
                     "@fr_NgayTao", fr_NgayTao,
                     "@to_NgayTao", to_NgayTao
                      );
@@ -108,7 +110,7 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
-        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total)
+        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total, int ma_nv, int ma_npp)
         {
             string msgError = "";
             total = 0;
@@ -116,7 +118,9 @@ namespace DataAccessLayer
             {
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_hdn_search",
                     "@page_index", pageIndex,
-                    "@page_size", pageSize
+                    "@page_size", pageSize,
+                    "@ma_nv", ma_nv,
+                    "@ma_npp", ma_npp
                      );
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);

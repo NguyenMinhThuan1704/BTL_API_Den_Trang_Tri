@@ -10,9 +10,14 @@ namespace DataModel
     {
         public int MaHoaDonNhap { get; set; }
         public int MaNhaPhanPhoi { get; set; }
+        public string TenNhaPhanPhoi { get; set; }
+        public string DiaChi { get; set; }
+        public string SoDienThoai { get; set; }
+
         public int MaTaiKhoan { get; set; }
+        public string HoTen { get; set; }
         public string KieuThanhToan { get; set; }
-        //public DateTime NgayTao { get; set; }
+        public decimal TongTien { get; set; }
         public List<ChiTietHoaDonNhapModel> list_json_chitiethoadonnhap { get; set; }
     }
     public class ChiTietHoaDonNhapModel
@@ -20,6 +25,8 @@ namespace DataModel
         public int MaCTHDN { get; set; }
         public int MaHoaDon { get; set; }        
         public int MaSanPham { get; set; }
+        public string TenSanPham { get; set; }
+
         public int SoLuong { get; set; }
         public string DonViTinh { get; set; }
         public double GiaNhap { get; set; }
