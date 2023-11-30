@@ -9,7 +9,7 @@ namespace DataAccessLayer
         {
             _dbHelper = dbHelper;
         }
-        public HoaDonNhapModel GetDatabyID(int id)
+        public getbyHDNidModel GetDatabyID(int id)
         {
             string msgError = "";
             try
@@ -18,7 +18,7 @@ namespace DataAccessLayer
                      "@MaHoaDonNhap", id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return dt.ConvertTo<HoaDonNhapModel>().FirstOrDefault();
+                return dt.ConvertTo<getbyHDNidModel>().FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -110,7 +110,7 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
-        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total, int ma_nv, int ma_npp)
+        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total, int ma_hdn, int ma_nv, int ma_npp)
         {
             string msgError = "";
             total = 0;
@@ -119,6 +119,7 @@ namespace DataAccessLayer
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_hdn_search",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
+                    "@ma_hdn", ma_hdn,
                     "@ma_nv", ma_nv,
                     "@ma_npp", ma_npp
                      );
@@ -126,6 +127,24 @@ namespace DataAccessLayer
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
                 return dt.ConvertTo<SearchHDNModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public bool Delete(string id)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_hoadonnhap_delete",
+                     "@MaHoaDonNhap", id);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
             }
             catch (Exception ex)
             {

@@ -15,6 +15,7 @@ namespace DataModel
         public int MaSanPham { get; set; }
         public string TenSanPham { get; set; }
         public int SoLuong { get; set; }
+        public string KieuThanhToan { get; set;}
         public Decimal TongTien { get; set; }
         public DateTime NgayTao { get; set; }
     }

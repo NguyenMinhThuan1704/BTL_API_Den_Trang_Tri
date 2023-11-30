@@ -63,7 +63,26 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
-        
+
+        public bool Delete(string id)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_hoadon_delete",
+                     "@MaHoaDon", id);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public bool Update(HoaDonModel model)
         {
             string msgError = "";
@@ -87,7 +106,28 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
-
+        public List<SearchHDBModel> SearchHDB(int pageIndex, int pageSize, out long total, int ma_hd,string ten_kh)
+        {
+            string msgError = "";
+            total = 0;
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_hd_search",
+                    "@page_index", pageIndex,
+                    "@page_size", pageSize,
+                    "@ma_hd", ma_hd,
+                    "@ten_kh", ten_kh
+                     );
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
+                return dt.ConvertTo<SearchHDBModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public List<ThongKeKhachModel> Search(int pageIndex, int pageSize, out long total, string ten_khach, DateTime? fr_NgayTao, DateTime? to_NgayTao)
         {
             string msgError = "";

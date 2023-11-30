@@ -28,9 +28,17 @@ namespace BusinessLogicLayer
         {
             return _res.Update(model);
         }
+        public bool Delete(string id)
+        {
+            return _res.Delete(id);
+        }
         public List<ThongKeKhachModel> Search(int pageIndex, int pageSize, out long total, string ten_khach, DateTime? fr_NgayTao, DateTime? to_NgayTao)
         {
             return _res.Search(pageIndex, pageSize, out total, ten_khach, fr_NgayTao, to_NgayTao);
+        }
+        public List<SearchHDBModel> SearchHDB(int pageIndex, int pageSize, out long total, int ma_hd, string ten_kh)
+        {
+            return _res.SearchHDB(pageIndex, pageSize, out total, ma_hd, ten_kh);
         }
 
     }

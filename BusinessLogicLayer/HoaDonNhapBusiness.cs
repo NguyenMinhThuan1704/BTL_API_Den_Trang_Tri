@@ -12,7 +12,7 @@ namespace BusinessLogicLayer
             _res = res;
         }
 
-        public HoaDonNhapModel GetDatabyID(int id)
+        public getbyHDNidModel GetDatabyID(int id)
         {
             return _res.GetDatabyID(id);
         }
@@ -28,13 +28,17 @@ namespace BusinessLogicLayer
         {
             return _res.Update(model);
         }
+        public bool Delete(string id)
+        {
+            return _res.Delete(id);
+        }
         public List<ThongKeHoaDonNhapModel> ThongKe(int pageIndex, int pageSize, out long total, int ma_nv, int ma_npp, DateTime? fr_NgayTao, DateTime? to_NgayTao)
         {
             return _res.ThongKe(pageIndex, pageSize, out total, ma_nv, ma_npp, fr_NgayTao, to_NgayTao);
         }
-        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total, int ma_nv, int ma_npp)
+        public List<SearchHDNModel> SearchHDN(int pageIndex, int pageSize, out long total, int ma_hdn, int ma_nv, int ma_npp)
         {
-            return _res.SearchHDN(pageIndex, pageSize, out total, ma_nv, ma_npp);
+            return _res.SearchHDN(pageIndex, pageSize, out total, ma_hdn, ma_nv, ma_npp);
         }
 
     }

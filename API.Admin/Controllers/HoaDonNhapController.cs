@@ -17,7 +17,7 @@ namespace Api.BanHang.Controllers
 
         [Route("get-by-id/{id}")]
         [HttpGet]
-        public HoaDonNhapModel GetDatabyID(int id)
+        public getbyHDNidModel GetDatabyID(int id)
         {
             return _hoadonnhapBusiness.GetDatabyID(id);
         }
@@ -40,6 +40,12 @@ namespace Api.BanHang.Controllers
         {
             _hoadonnhapBusiness.Update(model);
             return model;
+        }
+        [Route("delete/{id}")]
+        [HttpDelete]
+        public bool Delete(string id)
+        {
+            return _hoadonnhapBusiness.Delete(id);
         }
 
         [Route("thongke_hoadonnhap")]
@@ -91,12 +97,14 @@ namespace Api.BanHang.Controllers
             {
                 var page = int.Parse(formData["page"].ToString());
                 var pageSize = int.Parse(formData["pageSize"].ToString());
+                int ma_hdn = 0;
+                if (formData.Keys.Contains("ma_hdn")) { ma_hdn = int.Parse(formData["ma_hdn"].ToString()); }
                 int ma_nv = 0;
                 if (formData.Keys.Contains("ma_nv")) { ma_nv = int.Parse(formData["ma_nv"].ToString()); }
                 int ma_npp = 0;
                 if (formData.Keys.Contains("ma_npp")) { ma_npp = int.Parse(formData["ma_npp"].ToString()); }
                 long total = 0;
-                var data = _hoadonnhapBusiness.SearchHDN(page, pageSize, out total, ma_nv, ma_npp);
+                var data = _hoadonnhapBusiness.SearchHDN(page, pageSize, out total, ma_hdn, ma_nv, ma_npp);
                 return Ok(
                     new
                     {
