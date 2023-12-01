@@ -27,6 +27,10 @@ namespace BusinessLogicLayer
         {
             return _res.Delete(Id);
         }
+        public bool DeleteS(NPPModel_deletes model)
+        {
+            return _res.DeleteS(model);
+        }
         public List<NhaPhanPhoiModel> Search(int pageIndex, int pageSize, out long total, string ten_npp, string dia_chi)
         {
             return _res.Search(pageIndex, pageSize,out total, ten_npp, dia_chi);

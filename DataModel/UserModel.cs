@@ -34,4 +34,14 @@
         public string TenTaiKhoan { get; set; }
         public string MatKhau { get; set; }
     }
+    public class TaiKhoanModel_deletes
+    {
+        public List<ChiTietTaiKhoan1Model> list_json_mataikhoan { get; set; }
+    }
+    public class ChiTietTaiKhoan1Model
+    {
+        public int MaTaiKhoan { get; set; }
+        public int GhiChu { get; set; }
+
+    }
 }

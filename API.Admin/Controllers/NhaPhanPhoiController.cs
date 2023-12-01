@@ -48,6 +48,13 @@ namespace Api.BanHang.Controllers
         {
             return _nhaphanphoiBusiness.Delete(id);
         }
+        [Route("deleteS_NPP")]
+        [HttpPost]
+        public NPPModel_deletes DeleteS([FromBody] NPPModel_deletes model)
+        {
+            _nhaphanphoiBusiness.DeleteS(model);
+            return model;
+        }
         [Route("search")]
         [HttpPost]
         public IActionResult Search([FromBody] Dictionary<string, object> formData)

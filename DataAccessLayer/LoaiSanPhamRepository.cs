@@ -105,5 +105,23 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
+        public bool DeleteS(LoaiSanPhamModel_deletes model)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_loaisanpham_deleteS",
+                "@list_json_maloaisp", model.list_json_maloaisp != null ? MessageConvert.SerializeObject(model.list_json_maloaisp) : null);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

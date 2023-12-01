@@ -27,6 +27,10 @@ namespace BusinessLogicLayer
         {
             return _res.Delete(Id);
         }
+        public bool DeleteS(KhachModel_deletes model)
+        {
+            return _res.DeleteS(model);
+        }
         public List<KhachModel> Search(int pageIndex, int pageSize, out long total, string ten_khach, string dia_chi)
         {
             return _res.Search(pageIndex, pageSize,out total, ten_khach, dia_chi);

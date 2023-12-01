@@ -109,5 +109,23 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
+        public bool DeleteS(KhachModel_deletes model)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_khachhang_deleteS",
+                "@list_json_makhachhang", model.list_json_makhachhang != null ? MessageConvert.SerializeObject(model.list_json_makhachhang) : null);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

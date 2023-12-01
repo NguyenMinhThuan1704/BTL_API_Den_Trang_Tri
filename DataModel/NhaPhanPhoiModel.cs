@@ -14,4 +14,15 @@ namespace DataModel
         public string SoDienThoai { get; set; }
         public string MoTa { get; set; }
     }
+
+    public class NPPModel_deletes
+    {
+        public List<ChiTietNPPModel> list_json_manpp { get; set; }
+    }
+    public class ChiTietNPPModel
+    {
+        public int MaNhaPhanPhoi { get; set; }
+        public int GhiChu { get; set; }
+
+    }
 }

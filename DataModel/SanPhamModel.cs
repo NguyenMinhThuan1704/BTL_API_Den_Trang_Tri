@@ -40,4 +40,15 @@
         public int SoDonDatHang { get; set; }
     }
 
+    public class SanPhamModel_deletes
+    {
+        public List<ChiTietSanPhamModel> list_json_masp { get; set; }
+    }
+    public class ChiTietSanPhamModel
+    {
+        public int MaSanPham { get; set; }
+        public int GhiChu { get; set; }
+
+    }
+
 }

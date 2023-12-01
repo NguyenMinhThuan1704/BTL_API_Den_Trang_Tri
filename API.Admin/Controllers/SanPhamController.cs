@@ -68,6 +68,13 @@ namespace Api.BanHang.Controllers
         {
             return _sanphamBusiness.Delete(id);
         }
+        [Route("deleteS_SanPham")]
+        [HttpPost]
+        public SanPhamModel_deletes DeleteS([FromBody] SanPhamModel_deletes model)
+        {
+            _sanphamBusiness.DeleteS(model);
+            return model;
+        }
         [Route("search")]
         [HttpPost]
         public IActionResult Search([FromBody] Dictionary<string, object> formData)

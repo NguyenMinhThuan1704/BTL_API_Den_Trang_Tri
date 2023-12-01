@@ -27,6 +27,10 @@ namespace BusinessLogicLayer
         {
             return _res.Delete(Id);
         }
+        public bool DeleteS(TinTucModel_deletes model)
+        {
+            return _res.DeleteS(model);
+        }
         public List<TinTucModel> Search(int pageIndex, int pageSize, out long total, string tieu_de, string mo_ta)
         {
             return _res.Search(pageIndex, pageSize,out total, tieu_de, mo_ta);

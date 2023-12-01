@@ -107,5 +107,23 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
+        public bool DeleteS(TinTucModel_deletes model)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_tintuc_deleteS",
+                "@list_json_matt", model.list_json_matt != null ? MessageConvert.SerializeObject(model.list_json_matt) : null);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

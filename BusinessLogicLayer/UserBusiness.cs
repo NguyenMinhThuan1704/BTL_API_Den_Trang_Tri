@@ -41,6 +41,10 @@ namespace BusinessLogicLayer
         {
             return _res.Delete(Id);
         }
+        public bool DeleteS(TaiKhoanModel_deletes model)
+        {
+            return _res.DeleteS(model);
+        }
 
         public UserModel GetDatabyID(string id)
         {

@@ -48,6 +48,13 @@ namespace Api.BanHang.Controllers
         {
             return _tintucBusiness.Delete(id);
         }
+        [Route("deleteS_TinTuc")]
+        [HttpPost]
+        public TinTucModel_deletes DeleteS([FromBody] TinTucModel_deletes model)
+        {
+            _tintucBusiness.DeleteS(model);
+            return model;
+        }
         [Route("search_tintuc")]
         [HttpPost]
         public IActionResult Search([FromBody] Dictionary<string, object> formData)

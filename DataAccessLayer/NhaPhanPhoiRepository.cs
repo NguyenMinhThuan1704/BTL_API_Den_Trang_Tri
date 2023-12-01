@@ -109,5 +109,23 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
+        public bool DeleteS(NPPModel_deletes model)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_npp_deleteS",
+                "@list_json_manpp", model.list_json_manpp != null ? MessageConvert.SerializeObject(model.list_json_manpp) : null);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

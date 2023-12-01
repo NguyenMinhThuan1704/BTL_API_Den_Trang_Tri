@@ -27,6 +27,10 @@ namespace BusinessLogicLayer
         {
             return _res.Delete(Id);
         }
+        public bool DeleteS(LoaiSanPhamModel_deletes model)
+        {
+            return _res.DeleteS(model);
+        }
         public List<LoaiSanPhamModel> Search(int pageIndex, int pageSize, out long total, string tenlsp, string noidung)
         {
             return _res.Search(pageIndex, pageSize,out total, tenlsp, noidung);

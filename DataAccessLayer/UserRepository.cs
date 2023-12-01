@@ -168,5 +168,23 @@ namespace DataAccessLayer
                 throw ex;
             }
         }
+        public bool DeleteS(TaiKhoanModel_deletes model)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_taikhoan_deleteS",
+                "@list_json_mataikhoan", model.list_json_mataikhoan != null ? MessageConvert.SerializeObject(model.list_json_mataikhoan) : null);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
