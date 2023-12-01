@@ -9,7 +9,7 @@ namespace DataAccessLayer
         {
             _dbHelper = dbHelper;
         }
-        public HoaDonModel GetDatabyID(int id)
+        public getbyidHoaDonModel GetDatabyID(int id)
         {
             string msgError = "";
             try
@@ -18,7 +18,7 @@ namespace DataAccessLayer
                      "@MaHoaDon", id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return dt.ConvertTo<HoaDonModel>().FirstOrDefault();
+                return dt.ConvertTo<getbyidHoaDonModel>().FirstOrDefault();
             }
             catch (Exception ex)
             {

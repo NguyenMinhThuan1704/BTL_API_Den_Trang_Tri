@@ -12,7 +12,7 @@ namespace BusinessLogicLayer
             _res = res;
         }
 
-        public HoaDonModel GetDatabyID(int id)
+        public getbyidHoaDonModel GetDatabyID(int id)
         {
             return _res.GetDatabyID(id);
         }

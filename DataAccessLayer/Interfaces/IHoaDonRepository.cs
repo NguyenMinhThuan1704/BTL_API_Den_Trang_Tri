@@ -9,7 +9,7 @@ namespace DataAccessLayer
 {
     public partial interface IHoaDonRepository
     {
-        HoaDonModel GetDatabyID(int id);
+        getbyidHoaDonModel GetDatabyID(int id);
         List<HoaDonModel> GetAll() ;
         bool Create(HoaDonModel model);
         bool Update(HoaDonModel model);

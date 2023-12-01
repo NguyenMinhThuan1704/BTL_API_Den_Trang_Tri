@@ -17,7 +17,7 @@ namespace Api.BanHang.Controllers
 
         [Route("get-by-id/{id}")]
         [HttpGet]
-        public HoaDonModel GetDatabyID(int id)
+        public getbyidHoaDonModel GetDatabyID(int id)
         {
             return _hoadonBusiness.GetDatabyID(id);
         }

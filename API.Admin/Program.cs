@@ -34,6 +34,8 @@ builder.Services.AddTransient<ITinTucRepository, TinTucRepository>();
 builder.Services.AddTransient<ITinTucBusiness, TinTucBusiness>();
 builder.Services.AddTransient<IChiTietHDNRepository, ChiTietHDNRepository>();
 builder.Services.AddTransient<IChiTietHDNBusiness, ChiTietHDNBusiness>();
+builder.Services.AddTransient<IThongKeRepository, ThongKeRepository>();
+builder.Services.AddTransient<IThongKeBusiness, ThongKeBusiness>();
 
 // configure strongly typed settings objects
 IConfiguration configuration = builder.Configuration;
