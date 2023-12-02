@@ -28,26 +28,6 @@ namespace Api.BanHang.Controllers
         {
             return _loaisanphamBusiness.GetDatabyID(id);
         }
-        [Route("create-loaisanpham")]
-        [HttpPost]
-        public LoaiSanPhamModel CreateItem([FromBody] LoaiSanPhamModel model)
-        {
-            _loaisanphamBusiness.Create(model);
-            return model;
-        }
-        [Route("update-loaisanpham")]
-        [HttpPost]
-        public LoaiSanPhamModel UpdateItem([FromBody] LoaiSanPhamModel model)
-        {
-            _loaisanphamBusiness.Update(model);
-            return model;
-        }
-        [Route("delete/{id}")]
-        [HttpDelete]
-        public bool DeleteKH(string id)
-        {
-            return _loaisanphamBusiness.Delete(id);
-        }
         [Route("search")]
         [HttpPost]
         public IActionResult Search([FromBody] Dictionary<string, object> formData)
